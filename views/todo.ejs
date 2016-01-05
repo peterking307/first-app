@@ -1,0 +1,35 @@
+<h1> redfish </h1>
+
+
+
+<ul>
+    <li ng-repeat="task in tasks">
+        {{task.title}}
+    </li>
+</ul>
+
+   
+<form action="/task/create" method="POST">
+    <input type="text" name="title" placeholder="請填入您的大名">
+    <input type="submit" value="加入">
+</form>
+ 
+<script src="
+https://ajax.googleapis.com/ajax/libs/angularjs/1.2.29/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.js"> </script>
+
+<script>
+function taskController($scope) {
+
+        io.socket.on("connect", function () {
+          io.socket.get("/task", function (tasks) {
+          
+            $scope.tasks = tasks;
+            $scope.$apply();
+        });
+    });
+}
+
+
+
+</script>
